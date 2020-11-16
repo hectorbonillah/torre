@@ -203,11 +203,11 @@
 var users = [];
  $("#searchButtonJob").click(function () {
         //collect userName and password entered by users
-        var userName = $("textField1").val();
+        var userName = $("#textField1").val();
         
         var xhr = new XMLHttpRequest();
         var url = "https://bio.torre.co/api/bios/"+userName;
-        xhr.open("POST", url, true);
+        xhr.open("GET", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 201) {
@@ -217,7 +217,7 @@ var users = [];
                 localStorage.setItem("users", JSON.stringify(json));
             }
         };
-        var data = JSON.stringify({correo: userName});
+        var data = JSON.stringify({name:userName});
         xhr.send(data);
 
         console.log(xhr);
