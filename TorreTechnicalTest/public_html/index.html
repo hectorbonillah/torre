@@ -175,9 +175,13 @@
   <h1>Search for Jobs</h1>
   <p>What specific job are you looking for?</p>
   <div class="container">
-  <input type="text" placeholder="Search for a job...">
+      <input type="text" name="textField1" id="textField1" placeholder="Search for a job..."/>
+      <input type ='submit' name="searchButtonJob" id="searchButtonJob"/>
   <div class="search"></div>
 </div>
+  
+  
+  
 </div>
  
  
@@ -194,5 +198,40 @@
   <p style="text-align:center;font-family:verdana;">www.torre.co - Designed by Héctor Bonilla Higuera</p>
 </div>
 
+ 
+ <script>
+var users = [];
+ $("#searchButtonJob").click(function () {
+        //collect userName and password entered by users
+        var userName = $("textField1").val();
+        
+        var xhr = new XMLHttpRequest();
+        var url = "https://bio.torre.co/api/bios/"+userName;
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 201) {
+                var json = JSON.parse(xhr.responseText);
+                alert(json.correo + ", " + json.foto);
+                users.push(json);
+                localStorage.setItem("users", JSON.stringify(json));
+            }
+        };
+        var data = JSON.stringify({correo: userName});
+        xhr.send(data);
+
+        console.log(xhr);
+
+        
+    });
+ </script>
+ 
+ 
+ 
+ 
 </body>
 </html>
+
+
+
+
